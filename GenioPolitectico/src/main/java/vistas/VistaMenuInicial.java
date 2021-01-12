@@ -7,6 +7,7 @@ package vistas;
 
 import data.Archivo;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -70,7 +71,7 @@ public class VistaMenuInicial {
     }
     
     private void cargarImagenGenio(){
-        root.getChildren().add(Archivo.getGenioPolitecnico());
+        root.getChildren().add(Archivo.getGenioPolitecnico(400,300));
     }
     
     private void disenioRoot(){
@@ -104,6 +105,13 @@ public class VistaMenuInicial {
     private void eventoJugar(){
         jugar.setOnAction(
                 e -> {
+                    VistaPartida vp = new VistaPartida();
+                    Stage st = new Stage();
+                    Scene sc = new Scene(vp.getRoot(), 1280, 720);
+                    st.setScene(sc);
+                    st.setTitle("Genio Politecnico - Partida");
+                    st.show();
+                    
                 }
         );
     }

@@ -12,9 +12,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 /**
@@ -25,7 +26,7 @@ public class VentanaError {
     /**
      * Root de la clase VentanaError
      */
-    private HBox root;
+    private VBox root;
     private FileInputStream f;
     private static final String DISENIOLABEL = "-fx-font-size: 20;-fx-font-weight: bold;";
     /**
@@ -44,7 +45,7 @@ public class VentanaError {
         Label l = new Label(mensaje);
         l.setStyle(DISENIOLABEL);
         l.setTextFill(Color.RED);
-        root = new HBox();
+        root = new VBox();
         root.setAlignment(Pos.CENTER);
         root.setSpacing(10);
         root.getChildren().addAll(iv,l);
@@ -65,7 +66,7 @@ public class VentanaError {
      * Get del root de la clase VentanaError
      * @return 
      */
-    public HBox getRoot() {
+    public Pane getRoot() {
         return root;
     }
 }

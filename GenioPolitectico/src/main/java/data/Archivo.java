@@ -29,10 +29,10 @@ public class Archivo {
      * Retorna un ImageView con la imagen del genioPolitecnico
      * @return 
      */
-    public static ImageView getGenioPolitecnico(){
+    public static ImageView getGenioPolitecnico(int alto, int ancho){
         try{
             FileInputStream fi = new FileInputStream(RUTA_IMAGENGENIO);
-            return new ImageView(new Image(fi,500,300,true,true));
+            return new ImageView(new Image(fi,alto,ancho,true,true));
         } catch (FileNotFoundException ex) {
             VentanaError.mostrarError(ex);
         }
