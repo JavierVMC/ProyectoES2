@@ -6,8 +6,14 @@
 package data;
 
 import exceptions.VentanaError;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -37,5 +43,25 @@ public class Archivo {
             VentanaError.mostrarError(ex);
         }
         return null;
+    }
+    
+    /**
+     * Retorna un ArrayList con las lineas del archivo datos.txt
+     * @return 
+     */
+    public static ArrayList<String> elementosArbol(){
+        ArrayList<String> lista = new ArrayList<>();
+        try(BufferedReader br = new BufferedReader(new FileReader(RUTA_DATA))){
+            String linea;
+            while((linea = br.readLine())!=null){
+                lista.add(linea);
+            }
+        } catch (FileNotFoundException ex) {
+            VentanaError.mostrarError(ex);
+        } catch (IOException ex) {
+            VentanaError.mostrarError(ex);
+        }
+        
+        return lista;
     }
 }

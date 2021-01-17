@@ -6,6 +6,8 @@
 package vistas;
 
 import data.Archivo;
+import estructuras.ArbolDecision;
+import java.util.ArrayList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,12 +26,14 @@ public class VistaPartida {
     private Button si;
     private Button no;
     private Label pregunta;
+    private ArbolDecision<String> arbol;
     
     private static final String DISENIOROOT = "-fx-background-color: rgba(219, 219, 219, 0.5);";
     private static final String DISENIOBOTONES = "-fx-font-type: Tahoma;-fx-font-size: 30;-fx-background-color:rgba(63, 127, 191, 0.4);"; 
     private static final String DISENIOLABEL = "-fx-font-type: Tahoma;-fx-font-size: 50;-fx-background-color:rgba(188, 188, 188, 0);"; 
     
     public VistaPartida(){
+        arbol = crearArbol();
         root = new HBox();
         disenioRoot();
         preguntas = new VBox();
@@ -76,7 +80,7 @@ public class VistaPartida {
     
     private void crearLabel(){
         pregunta = new Label();
-        pregunta.setText("Escoge si o no"); // aqui hay que sacar la prregunta que este en la raiz del arbol
+        pregunta.setText(arbol.getPregunta()); // aqui hay que sacar la prregunta que este en la raiz del arbol
         pregunta.setAlignment(Pos.CENTER);
         pregunta.setTextAlignment(TextAlignment.CENTER);
         pregunta.setMaxWidth(700);
@@ -106,7 +110,10 @@ public class VistaPartida {
     private void eventoSi(){
         si.setOnAction(
                 e -> {
-                    pregunta.setText("pregunta si respondo que si"); // se pone la pregunta que corresponda bajando en el arbol 
+                    arbol.bajar(true);
+                    if(!arbol.isCurrentNull()){
+                        pregunta.setText(arbol.getPregunta()); // se pone la pregunta que corresponda bajando en el arbol 
+                    }
                 }
         );
     }
@@ -114,9 +121,42 @@ public class VistaPartida {
     private void eventoNo(){
         no.setOnAction(
                 e -> {
-                    pregunta.setText("pregunta si respondo que no"); // se pone la pregunta que corresponda bajando en el arbol 
+                    arbol.bajar(false);
+                    if(!arbol.isCurrentNull()){
+                        pregunta.setText(arbol.getPregunta()); // se pone la pregunta que corresponda bajando en el arbol 
+                    }
                 }
         );
+    }
+    
+    /**
+     * Crea el arbol de decision con las preguntas y respuestas del archivo datos
+     * @return 
+     */
+    public static ArbolDecision<String> crearArbol(){
+        ArbolDecision<String> arbol = new ArbolDecision<>();
+        ArrayList<String> elementos = Archivo.elementosArbol();
+        
+        arbol.add(elementos.get(0).substring(3),null);
+        
+        for(int i=1;i<elementos.size();i++){
+            
+            boolean esPregunta = elementos.get(i).contains("#P");
+            boolean anteriorEsPregunta = elementos.get(i-1).contains("#P");
+            
+            if(esPregunta){
+                int j = 1;
+                while(elementos.get(i-j).contains("#R") || arbol.nodeIsFull(elementos.get(i-j).substring(3))) 
+                    j++;
+                arbol.add(elementos.get(i).substring(3),elementos.get(i-j).substring(3));
+            }else{
+                if(anteriorEsPregunta)
+                    arbol.add(elementos.get(i).substring(3), elementos.get(i-1).substring(3));
+                else
+                    arbol.add(elementos.get(i).substring(3), elementos.get(i-2).substring(3));
+            }     
+        }
+        return arbol;
     }
     
 }
