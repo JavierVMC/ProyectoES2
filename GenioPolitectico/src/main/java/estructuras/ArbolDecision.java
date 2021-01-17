@@ -5,14 +5,26 @@
  */
 package estructuras;
 
+import java.util.ArrayList;
+import java.util.Stack;
+
 /**
  *
  * @author test1
  */
 public class ArbolDecision<E> {
-    private Node<E> previousNode; //referencia al nodo anterior en el que estaba el usuario
-    private Node<E> currentNode; //referencia al nodo en el que esta el usuario
-    private Node<E> root; // referencia a la raiz
+    /**
+     * referencia al nodo anterior en el que estaba el usuario
+     */
+    private Node<E> previousNode;
+    /**
+     * referencia al nodo en el que esta el usuario
+     */
+    private Node<E> currentNode;
+    /**
+     * referencia a la raiz
+     */
+    private Node<E> root;
     
     private class Node<E>{
         private final E data;
@@ -24,10 +36,20 @@ public class ArbolDecision<E> {
         }
     }
     
+    /**
+     * Retorna true si el arbol no tiene ningun elemento
+     * @return 
+     */
     public boolean isEmpty(){
         return root == null;
     }
     
+    /**
+     * Agrega elemento al arbol, el elemento se agrega donde el padre tenga espacio comenzando del lado izquierdo
+     * @param child
+     * @param parent
+     * @return 
+     */
     public boolean add(E child, E parent){
         Node<E> nchild = new Node<>(child);
         if(isEmpty() && parent==null){
@@ -51,12 +73,21 @@ public class ArbolDecision<E> {
         return false;
     }
     
+    /**
+     * Retorna true si el nodo con la data pasada como parametro tiene hijo izquierdo y derecho, sino retorna false
+     * @param data
+     * @return 
+     */
     public boolean nodeIsFull(E data){
         Node<E> nodo = searchNode(data);
         return nodo.left!=null && nodo.right!=null;
     }
     
-    
+    /**
+     * Retorna el nodo con la data pasada como parametro
+     * @param data
+     * @return 
+     */
     private Node<E> searchNode(E data){
         return searchNode(data,root);
     }
@@ -90,7 +121,10 @@ public class ArbolDecision<E> {
         }         
     }
     
-    
+    /**
+     * Actualiza las referencias del nodo actual y del nodo previo
+     * @param respuesta 
+     */
     public void bajar(boolean respuesta){
         if(currentNode!=null){
             if(respuesta){
@@ -106,13 +140,24 @@ public class ArbolDecision<E> {
         }
     }
     
-    
+    /**
+     * Retorna la pregunta que contiuene el nodo actual
+     * @return 
+     */
     public E getPregunta(){
         return currentNode.data;
     }
     
+    /**
+     * Retorna true si el nodo actual es nulo, sino retorna false
+     * @return 
+     */
     public boolean isCurrentNull(){
         return currentNode==null;
+    }
+    
+    public boolean isCurrentLeave(){
+        return currentNode.right==null && currentNode.left==null;
     }
     
     public void agregarNuevoNodo(E pregunta, E animal, boolean respuesta){
@@ -144,7 +189,9 @@ public class ArbolDecision<E> {
         }
     }
     
-    
+    /**
+     * Imprime en consola los elementos del arbol en pre-orden
+     */
     public void preOrden(){
         preOrden(root);
     }
@@ -157,5 +204,28 @@ public class ArbolDecision<E> {
         }
     }
     
+    public ArrayList<String> crearListaArbol(){
+        ArrayList<String> lista = new ArrayList<>();
+        Stack<Node<E>> stack = new Stack();
+        stack.push(root);
+
+        while (!stack.empty()){
+            Node<E> curr = stack.pop();
+
+            if(curr.left!=null && curr.right!=null)
+                lista.add("#P "+(String)curr.data);
+            else
+                lista.add("#R "+(String)curr.data);
+
+            if (curr.right != null)
+                stack.push(curr.right);
+            
+            if (curr.left != null)
+                stack.push(curr.left);
+            
+        }
+        
+        return lista;
+    }
     
 }

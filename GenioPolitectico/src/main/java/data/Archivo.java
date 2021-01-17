@@ -7,9 +7,11 @@ package data;
 
 import exceptions.VentanaError;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -63,5 +65,17 @@ public class Archivo {
         }
         
         return lista;
+    }
+    
+    
+    public static void guardarArbol(ArrayList<String> lista){
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(RUTA_DATA))) {
+            for(String linea:lista){
+                bw.write(linea);
+                bw.newLine();
+            }
+        } catch (IOException ex) {
+            VentanaError.mostrarError(ex);
+        }
     }
 }
