@@ -1,0 +1,17 @@
+-------------------------------------------------------------------------------
+Test set: vistas.VistaMenuInicialTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.515 sec <<< FAILURE!
+vistas.VistaMenuInicialTest.testGetRoot()  Time elapsed: 0.513 sec  <<< FAILURE!
+java.lang.ExceptionInInitializerError
+	at vistas.VistaMenuInicial.crearBotones(VistaMenuInicial.java:59)
+	at vistas.VistaMenuInicial.<init>(VistaMenuInicial.java:39)
+	at vistas.VistaMenuInicialTest.testGetRoot(VistaMenuInicialTest.java:48)
+Caused by: java.lang.IllegalStateException: Toolkit not initialized
+	at com.sun.javafx.application.PlatformImpl.runLater(PlatformImpl.java:410)
+	at com.sun.javafx.application.PlatformImpl.runLater(PlatformImpl.java:405)
+	at com.sun.javafx.application.PlatformImpl.setPlatformUserAgentStylesheet(PlatformImpl.java:695)
+	at com.sun.javafx.application.PlatformImpl.setDefaultPlatformUserAgentStylesheet(PlatformImpl.java:657)
+	at javafx.scene.control.Control.<clinit>(Control.java:99)
+	... 21 more
+

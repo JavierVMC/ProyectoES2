@@ -11,5 +11,7 @@
 #P es un ave?
 #R un pinguino
 #P vive en el oceano?
+#P tiene tentaculos?
 #R un calamar
+#R una ballena
 #R una araña

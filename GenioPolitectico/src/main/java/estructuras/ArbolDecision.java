@@ -80,7 +80,7 @@ public class ArbolDecision<E> {
      */
     public boolean nodeIsFull(E data){
         Node<E> nodo = searchNode(data);
-        return nodo.left!=null && nodo.right!=null;
+        return nodo!=null && nodo.left!=null && nodo.right!=null;
     }
     
     /**

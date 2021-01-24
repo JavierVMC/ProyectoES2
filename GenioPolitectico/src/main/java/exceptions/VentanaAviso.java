@@ -32,7 +32,7 @@ public class VentanaAviso {
      * @param mensaje
      * @param color 
      */
-    public VentanaAviso(String mensaje, Paint color) {
+    private VentanaAviso(String mensaje, Paint color) {
         
         Label l = new Label(mensaje);
         l.setStyle(DISENIOLABEL);
