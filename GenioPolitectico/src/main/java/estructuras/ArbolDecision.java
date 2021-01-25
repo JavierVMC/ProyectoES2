@@ -157,7 +157,7 @@ public class ArbolDecision<E> {
     }
     
     public boolean isCurrentLeave(){
-        return currentNode.right==null && currentNode.left==null;
+        return currentNode!=null && currentNode.right==null && currentNode.left==null;
     }
     
     public void agregarNuevoNodo(E pregunta, E animal, boolean respuesta){

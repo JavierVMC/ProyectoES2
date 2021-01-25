@@ -333,21 +333,10 @@ public class VistaPartida {
         arbol.add(elementos.get(0).substring(3),null);
         
         for(int i=1;i<elementos.size();i++){
-            
-            boolean esPregunta = elementos.get(i).contains("#P");
-            boolean anteriorEsPregunta = elementos.get(i-1).contains("#P");
-            
-            if(esPregunta){
-                int j = 1;
-                while(elementos.get(i-j).contains("#R") || arbol.nodeIsFull(elementos.get(i-j).substring(3))) 
-                    j++;
-                arbol.add(elementos.get(i).substring(3),elementos.get(i-j).substring(3));
-            }else{
-                if(anteriorEsPregunta)
-                    arbol.add(elementos.get(i).substring(3), elementos.get(i-1).substring(3));
-                else
-                    arbol.add(elementos.get(i).substring(3), elementos.get(i-2).substring(3));
-            }     
+            int j = 1;
+            while(elementos.get(i-j).contains("#R") || arbol.nodeIsFull(elementos.get(i-j).substring(3))) 
+                j++;
+            arbol.add(elementos.get(i).substring(3),elementos.get(i-j).substring(3));
         }
         return arbol;
     }
